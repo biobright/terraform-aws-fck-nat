@@ -62,9 +62,9 @@ resource "aws_network_interface" "main" {
 }
 
 resource "aws_route" "main" {
-  for_each = var.update_route_tables || var.update_route_table ? merge(var.route_tables_ids, var.route_table_id != null ? { RESERVED_FKC_NAT = var.route_table_id } : {}) : {}
+  count = var.update_route_tables ? length(var.route_tables_ids) : 0
 
-  route_table_id         = each.value
+  route_table_id         = var.route_tables_ids[count.index]
   destination_cidr_block = "0.0.0.0/0"
   network_interface_id   = aws_network_interface.main.id
 }

@@ -13,28 +13,16 @@ variable "subnet_id" {
   type        = string
 }
 
-variable "update_route_table" {
-  description = "Deprecated. Use update_route_tables instead"
-  type        = bool
-  default     = false
-}
-
 variable "update_route_tables" {
   description = "Whether or not to update the route tables with the NAT instance"
   type        = bool
   default     = false
 }
 
-variable "route_table_id" {
-  description = "Deprecated. Use route_tables_ids instead"
-  type        = string
-  default     = null
-}
-
 variable "route_tables_ids" {
   description = "Route tables to update. Only valid if update_route_tables is true"
-  type        = map(string)
-  default     = {}
+  type        = list(string)
+  default     = []
 }
 
 variable "encryption" {
